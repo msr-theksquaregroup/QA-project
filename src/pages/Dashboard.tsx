@@ -27,6 +27,7 @@ const runs: Run[] = [
   { runId: '1', status: 'completed', agents, coverage, files: [], artifacts: {}, errors: [] },
   { runId: '2', status: 'running', agents, files: [], artifacts: {}, errors: [] },
 
+
 const agents: AgentState[] = Array.from({ length: 8 }, (_, i) => ({
   name: `Agent ${i + 1}`,
   status: i < 3 ? 'done' : 'pending',

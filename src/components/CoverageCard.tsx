@@ -22,6 +22,7 @@ export function CoverageCard({ coverage }: Props) {
             className="bg-blue-200 flex-1"
             style={{ height: `${b.value}%` }}
           />
+
   return (
     <div className="border rounded p-4">
       <div className="text-sm text-gray-500">Coverage</div>
