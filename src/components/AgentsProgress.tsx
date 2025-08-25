@@ -20,9 +20,9 @@ export interface AgentsProgressHandle {
   setActiveAgent: (key: AgentKey) => void
 }
 
-
 import { Check } from 'lucide-react'
 import type { AgentState } from '../types'
+
 
 
 interface Props {
@@ -114,6 +114,7 @@ AgentsProgress.displayName = 'AgentsProgress'
 
 
 
+
 export function AgentsProgress({ agents }: Props) {
   return (
     <ol className="space-y-2">
@@ -144,3 +145,4 @@ export function AgentsProgress({ agents }: Props) {
     </ol>
   )
 }
+

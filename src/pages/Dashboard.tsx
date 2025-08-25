@@ -80,6 +80,7 @@ export default function Dashboard() {
     } catch {
       toast.error('Failed to start run')
     }
+
     const { runId } = await startRun({
       paths: selectedPaths,
       use_notebook: notebook,
@@ -152,6 +153,7 @@ export default function Dashboard() {
 
       {currentRun && currentRun.status === 'running' && (
         <div className="border rounded-xl p-4 space-y-4 bg-gray-100">
+
         <div className="border rounded p-4 space-y-4">
           <AgentsProgress agents={currentRun.agents} />
           {currentRun.coverage && (
@@ -161,6 +163,7 @@ export default function Dashboard() {
       )}
 
       <RunsTable runs={runs} isLoading={reportsQuery.isLoading} />
+
 
 import { AgentsProgress } from '../components/AgentsProgress'
 import { CoverageCard } from '../components/CoverageCard'

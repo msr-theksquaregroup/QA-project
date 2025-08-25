@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 
 export default function Files() {
   const { data: root, isLoading } = useQuery<FileNode>({
+
 import { listFiles, getFileContent } from '../lib/api'
 import type { FileNode } from '../types'
 
@@ -21,6 +22,7 @@ export default function Files() {
 
   const [active, setActive] = useState<string>()
   const { data: code, isLoading: codeLoading } = useQuery<string>({
+
   const { data: code } = useQuery<string>({
     queryKey: ['file', active],
     queryFn: () => getFileContent(active!),
@@ -60,6 +62,7 @@ export default function Files() {
         ) : (
           <div className="text-sm text-gray-500">Select a file to preview</div>
         )}
+
         {root && <FileTree nodes={[root]} onSelectFile={setActive} />}
       </div>
       <div className="col-span-2">

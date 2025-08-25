@@ -19,6 +19,7 @@ export function FileUploader() {
         qc.invalidateQueries({ queryKey: ['files'] })
       } catch {
         toast.error('Upload failed')
+
         alert('Upload successful')
         qc.invalidateQueries({ queryKey: ['files'] })
       } catch {
@@ -47,6 +48,7 @@ export function FileUploader() {
       setUrl('')
     } catch {
       toast.error('Upload failed')
+
       alert('Upload successful')
       qc.invalidateQueries({ queryKey: ['files'] })
       setUrl('')
@@ -61,6 +63,7 @@ export function FileUploader() {
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
         className="border border-dashed rounded-xl p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2 bg-gray-100"
+
         className="border-2 border-dashed rounded p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2"
       >
         <p>Drag and drop ZIP</p>
@@ -86,7 +89,6 @@ export function FileUploader() {
           Upload
         </Button>
       </div>
-
   
 
 import { useCallback } from 'react'

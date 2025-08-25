@@ -17,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <AppToaster />
         </>
 
+
         <App />
       </BrowserRouter>
     </QueryClientProvider>

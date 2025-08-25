@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Skeleton } from '@/components/ui/skeleton'
 
 
+
 import { AgentsProgress } from '@/components/AgentsProgress'
 import { CoverageCard } from '@/components/CoverageCard'
 import { StatusBadge } from '@/components/StatusBadge'
@@ -18,6 +19,7 @@ export default function RunDetail() {
   const [artifact, setArtifact] = useState<{ name: string; content: string } | null>(null)
 
   if (isLoading || !run) return <Skeleton className="h-64 rounded-xl" />
+
   const { data: run } = useQuery({ queryKey: ['run', runId], queryFn: () => getRun(runId) })
   const [artifact, setArtifact] = useState<{ name: string; content: string } | null>(null)
 
@@ -43,6 +45,7 @@ export default function RunDetail() {
       <section>
         <h3 className="font-semibold mb-2">Files</h3>
         <table className="w-full text-sm border rounded-xl bg-gray-100">
+
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left border-b">
@@ -77,6 +80,7 @@ export default function RunDetail() {
       {run.errors.length > 0 && (
         <section>
           <details className="border rounded-xl bg-gray-100">
+
           <details className="border rounded">
             <summary className="px-4 py-2 cursor-pointer text-red-600 font-semibold">
               Errors
@@ -128,6 +132,7 @@ function mapFileStatus(status: 'passed' | 'warn' | 'error'): StatusState {
       return 'error'
   }
 }
+
 
 import { useParams } from 'react-router-dom'
 import { StatusBadge } from '../components/StatusBadge'

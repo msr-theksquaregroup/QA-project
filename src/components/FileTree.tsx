@@ -1,4 +1,5 @@
 import { useMemo, useState, useRef } from 'react'
+
 import { useMemo, useState } from 'react'
 import type { FileNode } from '../types'
 import { useSelectedPaths, useUIActions } from '../lib/store'
@@ -58,6 +59,7 @@ function Node({ node, onSelectFile }: { node: FileNode; onSelectFile?: (p: strin
         onClick={() => setActive(node.path)}
       >
         {node.isDir && (
+
   <div className="ml-4">
     <div className="flex items-center gap-1">
       {node.isDir && (
@@ -144,6 +146,7 @@ function Node({ node, selected, onToggle }: { node: FileNode; selected: Set<stri
             setActive={setActive}
           />
         ))}
+
           <input type="checkbox" checked={isSelected} onChange={() => onToggle(node.path)} />
           {node.name}
         </label>
@@ -198,6 +201,7 @@ export function FileTree({ nodes, onSelectFile }: Props) {
           active={active}
           setActive={setActive}
         />
+
 export function FileTree({ nodes, selected, onToggle }: Props) {
   return (
     <div>

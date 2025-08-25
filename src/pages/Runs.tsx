@@ -11,6 +11,7 @@ export default function Runs() {
       getLink={(run) => `/runs/${run.runId}`}
     />
   )
+
   const { data } = useQuery({ queryKey: ['reports'], queryFn: listReports })
   return (
     <RunsTable

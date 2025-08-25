@@ -37,6 +37,7 @@ export function CodePreview({ path, code }: Props) {
   return (
     <div className="border rounded-xl flex flex-col h-full">
       <div className="px-2 py-1 bg-gray-100 text-xs border-b sticky top-0 flex justify-between items-center rounded-t-xl">
+
     <div className="border rounded flex flex-col h-full">
       <div className="px-2 py-1 bg-gray-100 text-xs border-b sticky top-0 flex justify-between items-center">
         <span>{path}</span>
@@ -44,6 +45,7 @@ export function CodePreview({ path, code }: Props) {
           Add to Selection
         </Button>
       </div>
+
 
 
 
@@ -60,8 +62,6 @@ export function CodePreview({ path, code, language }: Props) {
         theme="vs-light"
         options={{ readOnly: true, minimap: { enabled: false } }}
         height="400px"
-
-
         height="300px"
       />
     </div>

@@ -6,7 +6,6 @@ import { Skeleton } from './ui/skeleton'
 
 import { useNavigate } from 'react-router-dom'
 
-
 interface RunRow {
   runId: string
   status: Run['status']
@@ -41,6 +40,7 @@ export function RunsTable({ runs, getLink, isLoading }: Props) {
       </div>
     )
   }
+
   getLink?: (run: RunRow) => string
 }
 
@@ -55,6 +55,7 @@ interface Props {
 }
 
 export function RunsTable({ runs }: Props) {
+
   return (
     <table className="w-full text-sm">
       <thead>
@@ -63,9 +64,6 @@ export function RunsTable({ runs }: Props) {
           <th className="py-2">Status</th>
           <th className="py-2">Coverage</th>
           <th className="py-2">Date</th>
-
-
-
           <th className="py-2">Created</th>
 
         </tr>
@@ -125,7 +123,6 @@ function mapStatus(status: Run['status']): 'success' | 'warning' | 'error' | 'pe
       return 'running'
     default:
       return 'idle'
-
 
 
       return 'warning'
