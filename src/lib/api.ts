@@ -4,6 +4,11 @@ const API_BASE = '/api'
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options)
+
+
+
+export async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(url, options)
   if (!res.ok) throw new Error(`API error: ${res.status}`)
   return (await res.json()) as T
 }
@@ -28,6 +33,23 @@ function isRun(v: unknown): v is Run {
   if (!v || typeof v !== 'object') return false
   const r = v as Run
   return typeof r.runId === 'string' && Array.isArray(r.agents)
+
+
+function isFileNode(v: any): v is FileNode {
+  return (
+    v &&
+    typeof v.name === 'string' &&
+    typeof v.path === 'string' &&
+    typeof v.isDir === 'boolean'
+  )
+}
+
+function isUploadedSource(v: any): v is UploadedSource {
+  return v && typeof v.uploadId === 'string' && isFileNode(v.root)
+}
+
+function isRun(v: any): v is Run {
+  return v && typeof v.runId === 'string' && Array.isArray(v.agents)
 }
 
 export async function uploadZip(file: File): Promise<UploadedSource> {
@@ -61,6 +83,15 @@ export async function getFileContent(path: string): Promise<string> {
   if (!data || typeof data.content !== 'string')
     throw new Error('Invalid file content')
   return data.content
+
+
+
+  const data = await apiFetch<unknown>(`/files/content?path=${encodeURIComponent(path)}`)
+  if (!data || typeof (data as any).content !== 'string')
+    throw new Error('Invalid file content')
+  return (data as any).content
+
+
 }
 
 export async function startRun(payload: {
@@ -69,6 +100,10 @@ export async function startRun(payload: {
   customTests?: string
 }): Promise<{ runId: string }> {
   const data = await apiFetch<{ runId: string }>('/runs', {
+
+
+  const data = await apiFetch<unknown>('/runs', {
+
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -76,6 +111,11 @@ export async function startRun(payload: {
   if (!data || typeof data.runId !== 'string')
     throw new Error('Invalid run response')
   return { runId: data.runId }
+
+
+  if (!data || typeof (data as any).runId !== 'string')
+    throw new Error('Invalid run response')
+  return { runId: (data as any).runId }
 }
 
 export async function getRun(runId: string): Promise<Run> {
@@ -105,5 +145,22 @@ export async function listReports(): Promise<
   const data = await apiFetch<unknown>('/reports')
   if (!Array.isArray(data)) throw new Error('Invalid reports payload')
   return data as Pick<Run, 'runId' | 'status' | 'coverage' | 'createdAt'>[]
+
+  Pick<Run, 'runId' | 'status' | 'coverage'>[]
+> {
+  const data = await apiFetch<unknown>('/reports')
+  if (!Array.isArray(data)) throw new Error('Invalid reports payload')
+  return data as Pick<Run, 'runId' | 'status' | 'coverage'>[]
+}
+
+
+export function connectSSE(url: string, onMessage: (ev: MessageEvent) => void) {
+  const src = new EventSource(url)
+  src.onmessage = onMessage
+  return () => src.close()
+}
+
+export function connectWS(url: string) {
+  return new WebSocket(url)
 }
 
