@@ -7,6 +7,7 @@ import { queryClient } from './lib/queryClient'
 import './styles/index.css'
 import { AppToaster } from './components/ui/toaster'
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -15,6 +16,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <App />
           <AppToaster />
         </>
+
+        <App />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
