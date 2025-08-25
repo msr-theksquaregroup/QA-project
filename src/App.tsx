@@ -12,6 +12,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/files" element={<Files />} />
+        <Route path="/tests" element={<TestCases />} />
+        <Route path="/runs" element={<Runs />} />
+        <Route path="/runs/:runId" element={<RunDetail />} />
         <Route path="/test-cases" element={<TestCases />} />
         <Route path="/runs" element={<Runs />} />
         <Route path="/runs/:id" element={<RunDetail />} />

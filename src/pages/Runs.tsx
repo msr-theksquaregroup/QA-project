@@ -26,6 +26,7 @@ const runs: Run[] = [
     artifacts: {},
     errors: ['test failure'],
   },
+
   { id: '1', status: 'passed', createdAt: new Date().toISOString() },
   { id: '2', status: 'failed', createdAt: new Date().toISOString() },
 ]
