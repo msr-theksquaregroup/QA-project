@@ -32,6 +32,15 @@ export interface Run {
   files: { path: string; status: 'passed' | 'warn' | 'error' }[]
   artifacts: Record<string, string | object>
   errors: string[]
+
+export interface AgentState {
+  name: string
+  status: 'pending' | 'running' | 'done' | 'error'
+}
+
+export interface Coverage {
+  percent: number
+  history: number[]
 }
 
 export interface FileNode {
@@ -46,3 +55,12 @@ export interface UploadedSource {
   root: FileNode
 }
 
+
+  children?: FileNode[]
+}
+
+export interface Run {
+  id: string
+  status: 'queued' | 'running' | 'passed' | 'failed'
+  createdAt: string
+}
