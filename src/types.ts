@@ -33,6 +33,7 @@ export interface Run {
   artifacts: Record<string, string | object>
   errors: string[]
 
+
 export interface AgentState {
   name: string
   status: 'pending' | 'running' | 'done' | 'error'
@@ -41,6 +42,7 @@ export interface AgentState {
 export interface Coverage {
   percent: number
   history: number[]
+
 }
 
 export interface FileNode {
@@ -56,6 +58,7 @@ export interface UploadedSource {
 }
 
 
+
   children?: FileNode[]
 }
 
@@ -64,3 +67,4 @@ export interface Run {
   status: 'queued' | 'running' | 'passed' | 'failed'
   createdAt: string
 }
+

@@ -109,6 +109,7 @@ export const AgentsProgress = forwardRef<AgentsProgressHandle, Props>(
 )
 
 AgentsProgress.displayName = 'AgentsProgress'
+
 export function AgentsProgress({ agents }: Props) {
   return (
     <ol className="space-y-2">

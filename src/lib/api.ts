@@ -5,6 +5,7 @@ const API_BASE = '/api'
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options)
 
+
 export async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, options)
   if (!res.ok) throw new Error(`API error: ${res.status}`)
@@ -80,10 +81,12 @@ export async function getFileContent(path: string): Promise<string> {
   if (!data || typeof data.content !== 'string')
     throw new Error('Invalid file content')
   return data.content
+
   const data = await apiFetch<unknown>(`/files/content?path=${encodeURIComponent(path)}`)
   if (!data || typeof (data as any).content !== 'string')
     throw new Error('Invalid file content')
   return (data as any).content
+
 }
 
 export async function startRun(payload: {
@@ -93,7 +96,9 @@ export async function startRun(payload: {
 }): Promise<{ runId: string }> {
   const data = await apiFetch<{ runId: string }>('/runs', {
 
+
   const data = await apiFetch<unknown>('/runs', {
+
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -101,6 +106,7 @@ export async function startRun(payload: {
   if (!data || typeof data.runId !== 'string')
     throw new Error('Invalid run response')
   return { runId: data.runId }
+
 
   if (!data || typeof (data as any).runId !== 'string')
     throw new Error('Invalid run response')
@@ -136,6 +142,7 @@ export async function listReports(): Promise<
   return data as Pick<Run, 'runId' | 'status' | 'coverage'>[]
 }
 
+
 export function connectSSE(url: string, onMessage: (ev: MessageEvent) => void) {
   const src = new EventSource(url)
   src.onmessage = onMessage
@@ -145,3 +152,4 @@ export function connectSSE(url: string, onMessage: (ev: MessageEvent) => void) {
 export function connectWS(url: string) {
   return new WebSocket(url)
 }
+

@@ -28,6 +28,7 @@ const runs: Run[] = [
   { runId: '2', status: 'running', agents, files: [], artifacts: {}, errors: [] },
 
 
+
 const agents: AgentState[] = Array.from({ length: 8 }, (_, i) => ({
   name: `Agent ${i + 1}`,
   status: i < 3 ? 'done' : 'pending',
@@ -41,6 +42,7 @@ const coverage: Coverage = {
 const runs: Run[] = [
   { id: '1', status: 'passed', createdAt: new Date().toISOString() },
   { id: '2', status: 'running', createdAt: new Date().toISOString() },
+
 ]
 
 export default function Dashboard() {
