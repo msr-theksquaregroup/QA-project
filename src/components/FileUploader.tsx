@@ -2,6 +2,8 @@ import { useCallback, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { uploadZip, uploadByUrl } from '../lib/api'
 import { Button } from './ui/button'
+import { toast } from 'sonner'
+
 
 export function FileUploader() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -13,6 +15,10 @@ export function FileUploader() {
       if (!files || files.length === 0) return
       try {
         await uploadZip(files[0])
+        toast.success('Upload successful')
+        qc.invalidateQueries({ queryKey: ['files'] })
+      } catch {
+        toast.error('Upload failed')
         alert('Upload successful')
         qc.invalidateQueries({ queryKey: ['files'] })
       } catch {
@@ -36,6 +42,11 @@ export function FileUploader() {
     if (!url) return
     try {
       await uploadByUrl(url)
+      toast.success('Upload successful')
+      qc.invalidateQueries({ queryKey: ['files'] })
+      setUrl('')
+    } catch {
+      toast.error('Upload failed')
       alert('Upload successful')
       qc.invalidateQueries({ queryKey: ['files'] })
       setUrl('')
@@ -49,6 +60,7 @@ export function FileUploader() {
       <div
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
+        className="border border-dashed rounded-xl p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2 bg-gray-100"
         className="border-2 border-dashed rounded p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2"
       >
         <p>Drag and drop ZIP</p>
@@ -74,6 +86,7 @@ export function FileUploader() {
           Upload
         </Button>
       </div>
+
   
 
 import { useCallback } from 'react'

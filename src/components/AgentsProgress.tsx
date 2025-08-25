@@ -20,6 +20,7 @@ export interface AgentsProgressHandle {
   setActiveAgent: (key: AgentKey) => void
 }
 
+
 import { Check } from 'lucide-react'
 import type { AgentState } from '../types'
 
@@ -110,6 +111,7 @@ export const AgentsProgress = forwardRef<AgentsProgressHandle, Props>(
 )
 
 AgentsProgress.displayName = 'AgentsProgress'
+
 
 
 export function AgentsProgress({ agents }: Props) {

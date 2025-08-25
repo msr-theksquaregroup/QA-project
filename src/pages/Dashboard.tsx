@@ -5,6 +5,8 @@ import { AgentsProgress } from '@/components/AgentsProgress'
 import { CoverageCard } from '@/components/CoverageCard'
 import { RunsTable } from '@/components/RunsTable'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
+
 
 import {
   useSelectedPaths,
@@ -36,6 +38,48 @@ export default function Dashboard() {
   }, [])
 
   const handleRun = async () => {
+    try {
+      const { runId } = await startRun({
+        paths: selectedPaths,
+        use_notebook: notebook,
+      })
+      toast('Run started')
+      setLastRunId(runId)
+      setCurrentRun({
+        runId,
+        createdAt: new Date().toISOString(),
+        status: 'running',
+        agents: [],
+        files: [],
+        artifacts: {},
+        errors: [],
+      })
+      streamRef.current = streamRun(runId, (partial) => {
+        setCurrentRun((prev) => {
+          if (!prev) return prev
+          const next: Run = {
+            ...prev,
+            ...partial,
+            agents: partial.agents ?? prev.agents,
+            files: partial.files ?? prev.files,
+            coverage: partial.coverage ?? prev.coverage,
+          }
+          return next
+        })
+        if (partial.status && ['completed', 'failed'].includes(partial.status)) {
+          qc.invalidateQueries({ queryKey: ['reports'] })
+          streamRef.current?.close()
+          streamRef.current = null
+          if (partial.status === 'completed') {
+            toast.success('Run completed')
+          } else {
+            toast.error('Run failed')
+          }
+        }
+      })
+    } catch {
+      toast.error('Failed to start run')
+    }
     const { runId } = await startRun({
       paths: selectedPaths,
       use_notebook: notebook,
@@ -107,6 +151,7 @@ export default function Dashboard() {
       </div>
 
       {currentRun && currentRun.status === 'running' && (
+        <div className="border rounded-xl p-4 space-y-4 bg-gray-100">
         <div className="border rounded p-4 space-y-4">
           <AgentsProgress agents={currentRun.agents} />
           {currentRun.coverage && (
@@ -115,6 +160,7 @@ export default function Dashboard() {
         </div>
       )}
 
+      <RunsTable runs={runs} isLoading={reportsQuery.isLoading} />
 
 import { AgentsProgress } from '../components/AgentsProgress'
 import { CoverageCard } from '../components/CoverageCard'

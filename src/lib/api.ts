@@ -35,6 +35,7 @@ function isRun(v: unknown): v is Run {
   return typeof r.runId === 'string' && Array.isArray(r.agents)
 
 
+
 function isFileNode(v: any): v is FileNode {
   return (
     v &&
@@ -86,6 +87,7 @@ export async function getFileContent(path: string): Promise<string> {
 
 
 
+
   const data = await apiFetch<unknown>(`/files/content?path=${encodeURIComponent(path)}`)
   if (!data || typeof (data as any).content !== 'string')
     throw new Error('Invalid file content')
@@ -102,6 +104,7 @@ export async function startRun(payload: {
   const data = await apiFetch<{ runId: string }>('/runs', {
 
 
+
   const data = await apiFetch<unknown>('/runs', {
 
     method: 'POST',
@@ -111,6 +114,7 @@ export async function startRun(payload: {
   if (!data || typeof data.runId !== 'string')
     throw new Error('Invalid run response')
   return { runId: data.runId }
+
 
 
   if (!data || typeof (data as any).runId !== 'string')
@@ -146,6 +150,7 @@ export async function listReports(): Promise<
   if (!Array.isArray(data)) throw new Error('Invalid reports payload')
   return data as Pick<Run, 'runId' | 'status' | 'coverage' | 'createdAt'>[]
 
+
   Pick<Run, 'runId' | 'status' | 'coverage'>[]
 > {
   const data = await apiFetch<unknown>('/reports')
@@ -162,5 +167,6 @@ export function connectSSE(url: string, onMessage: (ev: MessageEvent) => void) {
 
 export function connectWS(url: string) {
   return new WebSocket(url)
+
 }
 

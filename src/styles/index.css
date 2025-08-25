@@ -5,3 +5,10 @@
 :root {
   color-scheme: light;
 }
+
+@layer base {
+  body {
+    font-family: theme('fontFamily.sans');
+  }
+}
+

@@ -33,6 +33,7 @@ export function StatusBadge({ state }: { state: StatusState }) {
 export default StatusBadge
 
 
+
 interface Props {
   status: 'success' | 'warning' | 'error' | 'pending'
 }
