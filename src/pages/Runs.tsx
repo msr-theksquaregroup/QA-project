@@ -5,6 +5,7 @@ const runs: Run[] = [
   {
     runId: '1',
     createdAt: new Date().toISOString(),
+
     status: 'completed',
     agents: [],
     coverage: {
@@ -22,12 +23,18 @@ const runs: Run[] = [
   {
     runId: '2',
     createdAt: new Date().toISOString(),
+
     status: 'failed',
     agents: [],
     files: [],
     artifacts: {},
     errors: ['test failure'],
   },
+
+
+
+  { id: '1', status: 'passed', createdAt: new Date().toISOString() },
+  { id: '2', status: 'failed', createdAt: new Date().toISOString() },
 ]
 
 export default function Runs() {
