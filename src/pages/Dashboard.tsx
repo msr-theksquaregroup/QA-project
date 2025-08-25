@@ -115,6 +115,7 @@ export default function Dashboard() {
         </div>
       )}
 
+
 import { AgentsProgress } from '../components/AgentsProgress'
 import { CoverageCard } from '../components/CoverageCard'
 import { RunsTable } from '../components/RunsTable'

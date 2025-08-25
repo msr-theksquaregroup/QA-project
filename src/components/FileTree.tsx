@@ -73,6 +73,7 @@ export function FileTree({ nodes, onSelectFile }: Props) {
       {nodes.map((n) => (
         <Node key={n.path} node={n} onSelectFile={onSelectFile} />
 
+
 import { useState } from 'react'
 import type { FileNode } from '../types'
 

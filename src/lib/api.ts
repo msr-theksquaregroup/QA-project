@@ -6,6 +6,7 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options)
 
 
+
 export async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, options)
   if (!res.ok) throw new Error(`API error: ${res.status}`)
@@ -84,6 +85,7 @@ export async function getFileContent(path: string): Promise<string> {
   return data.content
 
 
+
   const data = await apiFetch<unknown>(`/files/content?path=${encodeURIComponent(path)}`)
   if (!data || typeof (data as any).content !== 'string')
     throw new Error('Invalid file content')
@@ -100,7 +102,6 @@ export async function startRun(payload: {
   const data = await apiFetch<{ runId: string }>('/runs', {
 
 
-
   const data = await apiFetch<unknown>('/runs', {
 
     method: 'POST',
@@ -110,7 +111,6 @@ export async function startRun(payload: {
   if (!data || typeof data.runId !== 'string')
     throw new Error('Invalid run response')
   return { runId: data.runId }
-
 
 
   if (!data || typeof (data as any).runId !== 'string')
@@ -145,6 +145,7 @@ export async function listReports(): Promise<
   const data = await apiFetch<unknown>('/reports')
   if (!Array.isArray(data)) throw new Error('Invalid reports payload')
   return data as Pick<Run, 'runId' | 'status' | 'coverage' | 'createdAt'>[]
+
   Pick<Run, 'runId' | 'status' | 'coverage'>[]
 > {
   const data = await apiFetch<unknown>('/reports')

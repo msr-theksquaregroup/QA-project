@@ -1,6 +1,8 @@
 import type { Run, Coverage } from '../types'
 import { StatusBadge } from './StatusBadge'
 import type { StatusState } from './StatusBadge'
+import { useNavigate } from 'react-router-dom'
+
 
 interface RunRow {
   runId: string
@@ -11,6 +13,11 @@ interface RunRow {
 
 interface Props {
   runs: RunRow[]
+  getLink?: (run: RunRow) => string
+}
+
+export function RunsTable({ runs, getLink }: Props) {
+  const navigate = useNavigate()
 import type { Run } from '../types'
 import { StatusBadge } from './StatusBadge'
 import type { StatusState } from './StatusBadge'
@@ -30,13 +37,19 @@ export function RunsTable({ runs }: Props) {
           <th className="py-2">Date</th>
 
 
-
           <th className="py-2">Created</th>
 
         </tr>
       </thead>
       <tbody>
         {runs.map((run) => (
+          <tr
+            key={run.runId}
+            className={`border-b last:border-0 hover:bg-gray-50 ${
+              getLink ? 'cursor-pointer' : ''
+            }`}
+            onClick={() => getLink && navigate(getLink(run))}
+          >
           <tr key={run.runId} className="border-b last:border-0">
             <td className="py-2">{run.runId}</td>
             <td className="py-2">
@@ -44,6 +57,7 @@ export function RunsTable({ runs }: Props) {
             </td>
             <td className="py-2">{run.coverage?.overall_percentage ?? '-'}%</td>
             <td className="py-2">{new Date(run.createdAt).toLocaleString()}</td>
+
 
               <StatusBadge status={mapStatus(run.status)} />
             </td>
@@ -79,6 +93,7 @@ function mapStatus(status: Run['status']): 'success' | 'warning' | 'error' | 'pe
       return 'running'
     default:
       return 'idle'
+
 
 
       return 'warning'
