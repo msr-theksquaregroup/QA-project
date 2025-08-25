@@ -4,6 +4,7 @@ import { uploadZip, uploadByUrl } from '../lib/api'
 import { Button } from './ui/button'
 import { toast } from 'sonner'
 
+
 export function FileUploader() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [url, setUrl] = useState('')
@@ -18,6 +19,11 @@ export function FileUploader() {
         qc.invalidateQueries({ queryKey: ['files'] })
       } catch {
         toast.error('Upload failed')
+
+        alert('Upload successful')
+        qc.invalidateQueries({ queryKey: ['files'] })
+      } catch {
+        alert('Upload failed')
       }
     },
     [qc]
@@ -42,6 +48,12 @@ export function FileUploader() {
       setUrl('')
     } catch {
       toast.error('Upload failed')
+
+      alert('Upload successful')
+      qc.invalidateQueries({ queryKey: ['files'] })
+      setUrl('')
+    } catch {
+      alert('Upload failed')
     }
   }
 
@@ -51,6 +63,8 @@ export function FileUploader() {
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
         className="border border-dashed rounded-xl p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2 bg-gray-100"
+
+        className="border-2 border-dashed rounded p-6 text-center text-sm text-gray-600 flex flex-col items-center gap-2"
       >
         <p>Drag and drop ZIP</p>
         <Button size="sm" onClick={onBrowse}>
@@ -75,6 +89,29 @@ export function FileUploader() {
           Upload
         </Button>
       </div>
+  
+
+import { useCallback } from 'react'
+
+interface Props {
+  onFiles: (files: FileList) => void
+}
+
+export function FileUploader({ onFiles }: Props) {
+  const handle = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    if (e.dataTransfer.files) {
+      onFiles(e.dataTransfer.files)
+    }
+  }, [onFiles])
+
+  return (
+    <div
+      onDrop={handle}
+      onDragOver={(e) => e.preventDefault()}
+      className="border-2 border-dashed rounded p-6 text-center text-sm text-gray-600"
+    >
+      Drag and drop ZIP or paste URL
     </div>
   )
 }

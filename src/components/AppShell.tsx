@@ -6,6 +6,12 @@ const nav = [
   { to: '/', label: 'Dashboard' },
   { to: '/files', label: 'Files' },
   { to: '/tests', label: 'Test Cases' },
+
+
+
+  { to: '/test-cases', label: 'Test Cases' },
+
+
   { to: '/runs', label: 'Runs' },
 ]
 

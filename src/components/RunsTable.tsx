@@ -4,6 +4,8 @@ import type { StatusState } from './StatusBadge'
 import { useNavigate, Link } from 'react-router-dom'
 import { Skeleton } from './ui/skeleton'
 
+import { useNavigate } from 'react-router-dom'
+
 interface RunRow {
   runId: string
   status: Run['status']
@@ -38,6 +40,22 @@ export function RunsTable({ runs, getLink, isLoading }: Props) {
       </div>
     )
   }
+
+  getLink?: (run: RunRow) => string
+}
+
+export function RunsTable({ runs, getLink }: Props) {
+  const navigate = useNavigate()
+import type { Run } from '../types'
+import { StatusBadge } from './StatusBadge'
+import type { StatusState } from './StatusBadge'
+
+interface Props {
+  runs: Run[]
+}
+
+export function RunsTable({ runs }: Props) {
+
   return (
     <table className="w-full text-sm">
       <thead>
@@ -46,6 +64,8 @@ export function RunsTable({ runs, getLink, isLoading }: Props) {
           <th className="py-2">Status</th>
           <th className="py-2">Coverage</th>
           <th className="py-2">Date</th>
+          <th className="py-2">Created</th>
+
         </tr>
       </thead>
       <tbody>
@@ -57,12 +77,28 @@ export function RunsTable({ runs, getLink, isLoading }: Props) {
             }`}
             onClick={() => getLink && navigate(getLink(run))}
           >
+
+          <tr key={run.runId} className="border-b last:border-0">
             <td className="py-2">{run.runId}</td>
             <td className="py-2">
               <StatusBadge state={mapStatus(run.status)} />
             </td>
             <td className="py-2">{run.coverage?.overall_percentage ?? '-'}%</td>
             <td className="py-2">{new Date(run.createdAt).toLocaleString()}</td>
+
+
+
+              <StatusBadge status={mapStatus(run.status)} />
+            </td>
+            <td className="py-2">{run.coverage?.overall_percentage ?? '-'}%</td>
+          <tr key={run.id} className="border-b last:border-0">
+            <td className="py-2">{run.id}</td>
+            <td className="py-2">
+              <StatusBadge status={mapStatus(run.status)} />
+            </td>
+            <td className="py-2">{new Date(run.createdAt).toLocaleString()}</td>
+
+
           </tr>
         ))}
       </tbody>
@@ -73,6 +109,13 @@ export function RunsTable({ runs, getLink, isLoading }: Props) {
 function mapStatus(status: Run['status']): StatusState {
   switch (status) {
     case 'completed':
+
+
+
+function mapStatus(status: Run['status']): 'success' | 'warning' | 'error' | 'pending' {
+  switch (status) {
+    case 'completed':
+    case 'passed':
       return 'success'
     case 'failed':
       return 'error'
@@ -80,5 +123,12 @@ function mapStatus(status: Run['status']): StatusState {
       return 'running'
     default:
       return 'idle'
+
+
+      return 'warning'
+    default:
+      return 'pending'
+
+
   }
 }
