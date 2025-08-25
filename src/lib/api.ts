@@ -4,6 +4,8 @@ const API_BASE = '/api'
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options)
+export async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(url, options)
   if (!res.ok) throw new Error(`API error: ${res.status}`)
   return (await res.json()) as T
 }
@@ -100,3 +102,12 @@ export async function listReports(): Promise<
   return data as Pick<Run, 'runId' | 'status' | 'coverage'>[]
 }
 
+export function connectSSE(url: string, onMessage: (ev: MessageEvent) => void) {
+  const src = new EventSource(url)
+  src.onmessage = onMessage
+  return () => src.close()
+}
+
+export function connectWS(url: string) {
+  return new WebSocket(url)
+}

@@ -6,6 +6,10 @@ export default function RunDetail() {
   return (
     <div>
       <h2 className="text-lg font-semibold mb-2">Run {runId}</h2>
+  const { id } = useParams()
+  return (
+    <div>
+      <h2 className="text-lg font-semibold mb-2">Run {id}</h2>
       <StatusBadge status="pending" />
     </div>
   )

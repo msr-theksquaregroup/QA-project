@@ -23,6 +23,12 @@ export function AgentsProgress({ agents }: Props) {
             }
           >
             {a.label}
+        <li key={a.name} className="flex items-center gap-2">
+          <span className="w-4 h-4 border rounded-full flex items-center justify-center">
+            {a.status === 'done' && <Check className="w-3 h-3" />}
+          </span>
+          <span className={a.status === 'done' ? 'text-gray-800' : 'text-gray-500'}>
+            {a.name}
           </span>
         </li>
       ))}
