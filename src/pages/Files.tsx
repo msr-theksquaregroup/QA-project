@@ -12,6 +12,9 @@ export default function Files() {
       path: 'src',
       isDir: true,
       children: [{ name: 'main.tsx', path: 'src/main.tsx', isDir: false }],
+
+      children: [{ name: 'main.tsx', path: 'src/main.tsx' }],
+
     },
   ])
 
@@ -22,6 +25,8 @@ export default function Files() {
     } else {
       next.add(path)
     }
+    next.has(path) ? next.delete(path) : next.add(path)
+
     setSelected(next)
   }
 
