@@ -24,6 +24,7 @@ export function CoverageCard({ coverage }: Props) {
           />
 
 
+
   return (
     <div className="border rounded p-4">
       <div className="text-sm text-gray-500">Coverage</div>
@@ -31,6 +32,7 @@ export function CoverageCard({ coverage }: Props) {
       <div className="flex gap-1 mt-2 h-8 items-end">
         {coverage.history.map((v, i) => (
           <div key={i} className="bg-blue-200 w-2" style={{ height: `${v}%` }} />
+
         ))}
       </div>
     </div>

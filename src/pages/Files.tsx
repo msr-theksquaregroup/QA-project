@@ -31,6 +31,7 @@ export default function Files() {
         ) : (
           <div className="text-sm text-gray-500">Select a file to preview</div>
         )}
+
 import { FileUploader } from '../components/FileUploader'
 import { FileTree } from '../components/FileTree'
 import { CodePreview } from '../components/CodePreview'

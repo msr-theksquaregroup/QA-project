@@ -15,6 +15,7 @@ export default function App() {
         <Route path="/tests" element={<TestCases />} />
         <Route path="/runs" element={<Runs />} />
         <Route path="/runs/:runId" element={<RunDetail />} />
+
         <Route path="/test-cases" element={<TestCases />} />
         <Route path="/runs" element={<Runs />} />
         <Route path="/runs/:id" element={<RunDetail />} />

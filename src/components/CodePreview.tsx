@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { useUIActions } from '../lib/store'
 import { Button } from './ui/button'
 
-
 interface Props {
   path: string
   code: string
@@ -43,6 +42,7 @@ export function CodePreview({ path, code }: Props) {
           Add to Selection
         </Button>
       </div>
+
   language?: string
 }
 
@@ -56,6 +56,7 @@ export function CodePreview({ path, code, language }: Props) {
         theme="vs-light"
         options={{ readOnly: true, minimap: { enabled: false } }}
         height="400px"
+
         height="300px"
       />
     </div>

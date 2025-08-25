@@ -9,6 +9,7 @@ export default function RunDetail() {
       <StatusBadge state="idle" />
 
 
+
   const { id } = useParams()
   return (
     <div>

@@ -4,6 +4,8 @@ import type { Run } from '../types'
 const runs: Run[] = [
   {
     runId: '1',
+    createdAt: new Date().toISOString(),
+
     status: 'completed',
     agents: [],
     coverage: {
@@ -20,12 +22,15 @@ const runs: Run[] = [
   },
   {
     runId: '2',
+    createdAt: new Date().toISOString(),
+
     status: 'failed',
     agents: [],
     files: [],
     artifacts: {},
     errors: ['test failure'],
   },
+
 
 
   { id: '1', status: 'passed', createdAt: new Date().toISOString() },

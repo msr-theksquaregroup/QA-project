@@ -54,6 +54,7 @@ export const useUIActions = () =>
   }))
 
 
+
 interface UIState {
   selectedFiles: string[]
   notebook: string | null
@@ -67,3 +68,4 @@ export const useUIStore = create<UIState>((set) => ({
   setSelectedFiles: (files) => set({ selectedFiles: files }),
   setNotebook: (notebook) => set({ notebook }),
 }))
+

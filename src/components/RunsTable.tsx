@@ -1,3 +1,16 @@
+import type { Run, Coverage } from '../types'
+import { StatusBadge } from './StatusBadge'
+import type { StatusState } from './StatusBadge'
+
+interface RunRow {
+  runId: string
+  status: Run['status']
+  coverage?: Coverage
+  createdAt: string
+}
+
+interface Props {
+  runs: RunRow[]
 import type { Run } from '../types'
 import { StatusBadge } from './StatusBadge'
 import type { StatusState } from './StatusBadge'
@@ -14,6 +27,8 @@ export function RunsTable({ runs }: Props) {
           <th className="py-2">ID</th>
           <th className="py-2">Status</th>
           <th className="py-2">Coverage</th>
+          <th className="py-2">Date</th>
+
 
 
           <th className="py-2">Created</th>
@@ -28,6 +43,7 @@ export function RunsTable({ runs }: Props) {
               <StatusBadge state={mapStatus(run.status)} />
             </td>
             <td className="py-2">{run.coverage?.overall_percentage ?? '-'}%</td>
+            <td className="py-2">{new Date(run.createdAt).toLocaleString()}</td>
 
               <StatusBadge status={mapStatus(run.status)} />
             </td>
@@ -51,6 +67,7 @@ function mapStatus(status: Run['status']): StatusState {
   switch (status) {
     case 'completed':
 
+
 function mapStatus(status: Run['status']): 'success' | 'warning' | 'error' | 'pending' {
   switch (status) {
     case 'completed':
@@ -62,6 +79,7 @@ function mapStatus(status: Run['status']): 'success' | 'warning' | 'error' | 'pe
       return 'running'
     default:
       return 'idle'
+
 
       return 'warning'
     default:

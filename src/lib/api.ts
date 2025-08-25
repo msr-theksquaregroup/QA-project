@@ -33,6 +33,7 @@ function isRun(v: unknown): v is Run {
   const r = v as Run
   return typeof r.runId === 'string' && Array.isArray(r.agents)
 
+
 function isFileNode(v: any): v is FileNode {
   return (
     v &&
@@ -82,10 +83,12 @@ export async function getFileContent(path: string): Promise<string> {
     throw new Error('Invalid file content')
   return data.content
 
+
   const data = await apiFetch<unknown>(`/files/content?path=${encodeURIComponent(path)}`)
   if (!data || typeof (data as any).content !== 'string')
     throw new Error('Invalid file content')
   return (data as any).content
+
 
 }
 
@@ -97,6 +100,7 @@ export async function startRun(payload: {
   const data = await apiFetch<{ runId: string }>('/runs', {
 
 
+
   const data = await apiFetch<unknown>('/runs', {
 
     method: 'POST',
@@ -106,6 +110,7 @@ export async function startRun(payload: {
   if (!data || typeof data.runId !== 'string')
     throw new Error('Invalid run response')
   return { runId: data.runId }
+
 
 
   if (!data || typeof (data as any).runId !== 'string')
@@ -135,6 +140,11 @@ export function streamRun(
 }
 
 export async function listReports(): Promise<
+  Pick<Run, 'runId' | 'status' | 'coverage' | 'createdAt'>[]
+> {
+  const data = await apiFetch<unknown>('/reports')
+  if (!Array.isArray(data)) throw new Error('Invalid reports payload')
+  return data as Pick<Run, 'runId' | 'status' | 'coverage' | 'createdAt'>[]
   Pick<Run, 'runId' | 'status' | 'coverage'>[]
 > {
   const data = await apiFetch<unknown>('/reports')
