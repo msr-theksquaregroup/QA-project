@@ -10,6 +10,8 @@ export default function Files() {
     {
       name: 'src',
       path: 'src',
+      isDir: true,
+      children: [{ name: 'main.tsx', path: 'src/main.tsx', isDir: false }],
       children: [{ name: 'main.tsx', path: 'src/main.tsx' }],
     },
   ])
